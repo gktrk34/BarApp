@@ -3,12 +3,17 @@ using System.Collections.ObjectModel;
 
 namespace BarApp.ViewModels;
 
-public class FavoritesPageViewModel
+public class FavoritesPageViewModel : BaseViewModel
 {
-    public ObservableCollection<Product> Favorites { get; set; }
+    private ObservableCollection<Product> _favorites;
+    public ObservableCollection<Product> Favorites
+    {
+        get => _favorites;
+        set => SetProperty(ref _favorites, value);
+    }
 
     public FavoritesPageViewModel()
     {
-        Favorites = new ObservableCollection<Product>();
+        _favorites = new ObservableCollection<Product>();
     }
 }
