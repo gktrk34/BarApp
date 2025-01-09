@@ -8,22 +8,25 @@ namespace BarApp.Views;
 public partial class FavoritesPage : ContentPage
 {
     private readonly IFavoritesService _favoritesService;
-    public ObservableCollection<Product> Favorites { get; set; }
+    private FavoritesPageViewModel _viewModel; // ViewModel'ý burada tanýmlýyoruz
 
     public FavoritesPage()
     {
         InitializeComponent();
         _favoritesService = MauiProgram.ServiceProvider.GetService<IFavoritesService>();
-        // BindingContext'i ayarla ve Favorites'i doldur:
-        BindingContext = new FavoritesPageViewModel { Favorites = new ObservableCollection<Product>(_favoritesService.GetAllFavorites()) };
+
+        // ViewModel'ý sadece ilk seferde oluþtur:
+        _viewModel = new FavoritesPageViewModel();
+        BindingContext = _viewModel;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        // Sayfa her göründüðünde listeyi güncelle:
-        Favorites = new ObservableCollection<Product>(_favoritesService.GetAllFavorites());
-        FavoritesCollection.ItemsSource = Favorites;
+
+        // ViewModel'ýn Favorites koleksiyonunu güncelle:
+        _viewModel.Favorites = new ObservableCollection<Product>(_favoritesService.GetAllFavorites());
+        FavoritesCollection.ItemsSource = _viewModel.Favorites;
 
     }
 
@@ -32,8 +35,8 @@ public partial class FavoritesPage : ContentPage
         if (sender is SwipeItem swipeItem && swipeItem.CommandParameter is Product product)
         {
             _favoritesService.RemoveFromFavorites(product);
-            // Doðrudan Favorites koleksiyonundan ürünü sil:
-            Favorites.Remove(product);
+            // ViewModel'ýn Favorites koleksiyonundan sil:
+            _viewModel.Favorites.Remove(product);
         }
     }
 }
