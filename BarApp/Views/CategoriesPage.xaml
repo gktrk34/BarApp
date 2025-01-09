@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BarApp.Views.CategoriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Kategoriler">
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <Label Text="Kategoriler"
+               HorizontalOptions="Center"
+               FontSize="20"
+               TextColor="DarkBlue" />
+
+        <CollectionView x:Name="CategoriesCollection"
+                        SelectionMode="Single"
+                        SelectionChanged="OnCategorySelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Kategori resmi -->
+                        <Image Source="{Binding ImageUrl}"
+                               HeightRequest="40"
+                               WidthRequest="40"
+                               Aspect="AspectFit" />
+
+                        <!-- Kategori adı -->
+                        <Label Text="{Binding Name}"
+                               Grid.Column="1"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="14" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

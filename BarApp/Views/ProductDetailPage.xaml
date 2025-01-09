@@ -1,0 +1,25 @@
+<ContentPage 
+    x:Class="BarApp.Views.ProductDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Ürün Detayı">
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+        <Image x:Name="ProductImage"
+               HeightRequest="150"
+               HorizontalOptions="Center"/>
+        <Label x:Name="ProductNameLabel"
+               FontAttributes="Bold"
+               FontSize="18"
+               HorizontalOptions="Center"/>
+        <Label x:Name="ProductDescriptionLabel"
+               FontSize="14"
+               TextColor="Gray"
+               HorizontalOptions="Center"/>
+
+        <!-- Favori ekle veya barıma ekle butonları vb. -->
+        <Button Text="Favorilere Ekle" Clicked="OnFavoriteClicked"/>
+        <Button Text="Barıma Ekle" Clicked="OnAddToBarClicked"/>
+
+    </VerticalStackLayout>
+</ContentPage>

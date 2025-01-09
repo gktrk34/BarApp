@@ -1,0 +1,13 @@
+<ContentPage 
+    x:Class="BarApp.Views.MyBarPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Barım">
+
+    <VerticalStackLayout Padding="10">
+        <Label Text="Barım Sayfası" 
+               HorizontalOptions="Center"
+               FontSize="20"
+               TextColor="DarkBlue" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell 
+    x:Class="BarApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:BarApp.Views" 
+    Shell.FlyoutBehavior="Flyout">
+
+    <!-- Uygulama içinde kullanacağımız Sayfa Rotalarını tanımlayalım -->
+    <ShellContent 
+        Title="Kategoriler" 
+        ContentTemplate="{DataTemplate pages:CategoriesPage}" 
+        Route="CategoriesPage" />
+
+    <ShellContent 
+        Title="Favoriler" 
+        ContentTemplate="{DataTemplate pages:FavoritesPage}" 
+        Route="FavoritesPage" />
+
+    <ShellContent 
+        Title="Barım" 
+        ContentTemplate="{DataTemplate pages:MyBarPage}" 
+        Route="MyBarPage" />
+
+    <ShellContent 
+        Title="Kokteyller" 
+        ContentTemplate="{DataTemplate pages:CocktailsPage}" 
+        Route="CocktailsPage" />
+
+    <!-- Daha sonra markalar/ürün detay için ek sayfalar ekleyebiliriz. 
+         Onları ShellContent yerine ayrı Route olarak tanımlayıp 
+         kod-behind'da Shell.NavigateTo() vs. ile yönlendireceğiz. -->
+
+</Shell>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BarApp.Views.BrandListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Markalar">
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <Label Text="Marka Listesi"
+               HorizontalOptions="Center"
+               FontSize="20"
+               TextColor="DarkBlue" />
+
+        <CollectionView x:Name="BrandsCollection"
+                        SelectionMode="Single"
+                        SelectionChanged="OnBrandSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Marka resmi -->
+                        <Image Source="{Binding ImageUrl}"
+                               HeightRequest="50"
+                               WidthRequest="50"
+                               Aspect="AspectFit"/>
+
+                        <!-- Marka adı -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   FontSize="16" />
+                            <Label Text="{Binding Description}"
+                                   FontSize="12"
+                                   TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
