@@ -53,21 +53,31 @@ namespace BarApp.Views
             }
         }
 
-        private async void OnFavoriteClicked(object sender, EventArgs e)
+        private void OnFavoriteClicked(object sender, EventArgs e)
         {
             if (_currentProduct != null)
             {
-                _favoritesService.AddToFavorites(_currentProduct);
+                // _currentProduct'ýn referansýný kaybetmemek için bir kopyasýný oluþturuyoruz:
+                var productToAdd = new Product
+                {
+                    Name = _currentProduct.Name,
+                    ImageUrl = _currentProduct.ImageUrl,
+                    BrandName = _currentProduct.BrandName,
+                    Description = _currentProduct.Description
+                    // Diðer özellikleri de kopyala...
+                };
+
+                _favoritesService.AddToFavorites(productToAdd);
 
                 // Eklenen ürün favorilerde görünüyor mu kontrolü (Ýsim ve resim ile kontrol ediyoruz):
-                var isAdded = _favoritesService.GetAllFavorites().Any(p => p.Name == _currentProduct.Name && p.ImageUrl == _currentProduct.ImageUrl);
+                var isAdded = _favoritesService.GetAllFavorites().Any(p => p.Name == productToAdd.Name && p.ImageUrl == productToAdd.ImageUrl);
                 if (isAdded)
                 {
-                    await DisplayAlert("Favori", $"{_currentProduct.Name} favorilere eklendi!", "OK");
+                    DisplayAlert("Favori", $"{productToAdd.Name} favorilere eklendi!", "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Hata", $"{_currentProduct.Name} favorilere eklenemedi!", "OK");
+                    DisplayAlert("Hata", $"{productToAdd.Name} favorilere eklenemedi!", "OK");
                 }
             }
         }
