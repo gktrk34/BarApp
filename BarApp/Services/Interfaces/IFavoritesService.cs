@@ -12,6 +12,6 @@ namespace BarApp.Services.Interfaces
         // Örnek: Product
         void AddToFavorites(Product product);
         void RemoveFromFavorites(Product product);
-        IReadOnlyList<Product> GetAllFavorites();
+        List<Product> GetAllFavorites(); // Dönüş tipi List<Product> olarak değiştirildi
     }
 }

@@ -3,27 +3,33 @@ using BarApp.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BarApp.Services
+namespace BarApp.Services { 
+public class FavoritesServiceMock : IFavoritesService
 {
-    public class FavoritesServiceMock : IFavoritesService
+    private readonly List<Product> _favorites = new List<Product>();
+
+    public void AddToFavorites(Product product)
     {
-        private readonly List<Product> _favorites = new();
-
-        public void AddToFavorites(Product product)
+        // Ürün zaten favorilerde yoksa ekle:
+        if (!_favorites.Any(p => p.Name == product.Name && p.ImageUrl == product.ImageUrl))
         {
-            // Aynı ürün varsa tekrar ekleme
-            if (!_favorites.Any(p => p.Name == product.Name))
-                _favorites.Add(product);
-        }
-
-        public void RemoveFromFavorites(Product product)
-        {
-            _favorites.RemoveAll(p => p.Name == product.Name);
-        }
-
-        public IReadOnlyList<Product> GetAllFavorites()
-        {
-            return _favorites;
+            _favorites.Add(product);
         }
     }
+
+    public void RemoveFromFavorites(Product product)
+    {
+        // Ürünü listeden silerken referans kontrolü yerine Name ve ImageUrl özelliklerini kullan
+        var itemToRemove = _favorites.FirstOrDefault(p => p.Name == product.Name && p.ImageUrl == product.ImageUrl);
+        if (itemToRemove != null)
+        {
+            _favorites.Remove(itemToRemove);
+        }
+    }
+
+    public List<Product> GetAllFavorites()
+    {
+        return _favorites;
+    }
+}
 }

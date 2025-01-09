@@ -53,20 +53,25 @@ namespace BarApp.Views
             }
         }
 
-        private void OnFavoriteClicked(object sender, EventArgs e)
+        private async void OnFavoriteClicked(object sender, EventArgs e)
         {
-            // Eðer _currentProduct varsa, favorilere ekleyelim
             if (_currentProduct != null)
             {
                 _favoritesService.AddToFavorites(_currentProduct);
 
-                DisplayAlert("Favori", $"{_currentProduct.Name} favorilere eklendi!", "OK");
-            }
-            else
-            {
-                DisplayAlert("Hata", "Ürün bilgisi yüklenemedi!", "OK");
+                // Eklenen ürün favorilerde görünüyor mu kontrolü (Ýsim ve resim ile kontrol ediyoruz):
+                var isAdded = _favoritesService.GetAllFavorites().Any(p => p.Name == _currentProduct.Name && p.ImageUrl == _currentProduct.ImageUrl);
+                if (isAdded)
+                {
+                    await DisplayAlert("Favori", $"{_currentProduct.Name} favorilere eklendi!", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Hata", $"{_currentProduct.Name} favorilere eklenemedi!", "OK");
+                }
             }
         }
+
 
         private void OnAddToBarClicked(object sender, EventArgs e)
         {
